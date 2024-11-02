@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import LoginForm from "../auth/LoginForm";
+import LoginForm from "../features/auth/LoginForm";
 
 const Login = () => {
   return (
@@ -7,8 +7,11 @@ const Login = () => {
       <h2 className="text-3xl text-lead font-bold pb-16">Sign in</h2>
       <LoginForm />
       <h4 className="text-md text-lead font-normal mt-10">
-        Didn't sign up yet? Create an account{" "}
-        <Link to="../register" className="font-medium hover:bg-dark underline underline-offset-2">
+        Didn't sign up yet? Create your account{" "}
+        <Link
+          to="../register"
+          className="font-medium hover:font-extrabold hover:px-1 underline underline-offset-2 transition-all duration-100"
+        >
           here
         </Link>
         .
