@@ -1,59 +1,75 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 import { cva } from "class-variance-authority";
 
 interface ButtonProps {
+  type?: "submit" | "reset" | "button" | undefined;
   children: ReactNode;
   className?: string;
   onClick?: () => void;
   disabled?: boolean;
-  color?: 'primary' | 'dark' | 'outline';
+  color?: "primary" | "dark" | "outline";
   link?: string;
 }
 
 const Button = ({
+  type = "button",
   children,
   className,
   onClick,
   disabled = false,
-  color = 'primary',
+  color = "primary",
 }: ButtonProps) => {
-  const button = cva(["w-max", "py-3", "px-5", "text-base", "font-medium", "text-center", "rounded-lg", "focus:ring-2", "focus:ring-lead"], {
-    variants: {
-      color: {
-        primary: [
-          "bg-lead",
-          "text-primary",
-          "hover:bg-lead-dark",
-          "disabled:bg-disabled",
-          "disabled:hover:bg-lead"
-        ],
-        dark: [
-          "bg-dark",
-          "text-lead",
-          "hover:bg-darker",
-          "disabled:text-disabled",
-          "disabled:hover:bg-dark",
-        ],
-        outline: [
-          "bg-transparent",
-          "text-lead",
-          "border",
-          "border-lead",
-          "hover:border-lead-dark",
-          "hover:text-lead-dark",
-          "disabled:text-disabled",
-          "disabled:border-disabled",
-          "disabled:hover:bg-transparent",
-        ],
+  const button = cva(
+    [
+      "w-max",
+      "py-2",
+      "px-5",
+      "text-base",
+      "font-medium",
+      "text-center",
+      "rounded-lg",
+      "focus:ring-2",
+      "focus:ring-lead",
+    ],
+    {
+      variants: {
+        color: {
+          primary: [
+            "bg-lead",
+            "text-primary",
+            "hover:bg-lead-dark",
+            "disabled:bg-disabled",
+            "disabled:hover:bg-lead",
+          ],
+          dark: [
+            "bg-dark",
+            "text-lead",
+            "hover:bg-darker",
+            "disabled:text-disabled",
+            "disabled:hover:bg-dark",
+          ],
+          outline: [
+            "bg-transparent",
+            "text-lead",
+            "border",
+            "border-lead",
+            "hover:border-lead-dark",
+            "hover:text-lead-dark",
+            "disabled:text-disabled",
+            "disabled:border-disabled",
+            "disabled:hover:bg-transparent",
+          ],
+        },
       },
-    },
-    defaultVariants: {
-      color: "primary"
-    },
-  });
+      defaultVariants: {
+        color: "primary",
+      },
+    }
+  );
   return (
     <>
       <button
+        type={type}
         onClick={onClick}
         disabled={disabled}
         className={button({ color }) + " " + className}

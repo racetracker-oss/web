@@ -16,7 +16,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(({ className, image, title, p
     <div ref={ref}
       className={`${className ? className : ""} relative h-96 w-96 max-w-[90vw] rounded-sm bg-light hover:shadow-lg hover:border overflow-hidden cursor-pointer`}
       title={title} onClick={() => {
-        link && navigate(link);
+        if(link) navigate(link);
       }}
     >
       <>

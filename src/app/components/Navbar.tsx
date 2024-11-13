@@ -1,11 +1,21 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import Button from "./Button";
+import { useAppDispatch } from "../redux/hooks";
+import { logout } from "../redux/authSlice";
 
 const Navbar = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [user, setUser] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const dispatch = useAppDispatch();
 
   const toggleMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
   };
 
   return (
@@ -45,10 +55,10 @@ const Navbar = () => {
           </svg>
         </button>
         <div
-          className={`${!mobileMenuOpen && 'hidden'} w-full md:block md:w-auto`}
+          className={`${!mobileMenuOpen && "hidden"} w-full md:block md:w-auto`}
           id="navbar"
         >
-          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 bg-neutral-700 md:bg-transparent border-neutral-700">
+          <ul className="font-medium flex flex-col items-center p-4 md:p-0 mt-4 border rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 bg-neutral-700 md:bg-transparent border-neutral-700">
             <li>
               <Link
                 to="/"
@@ -83,18 +93,21 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link
-                to="/"
-                className="block py-2 px-3 text-neutral-300 rounded md:hover:bg-transparent md:border-0 md:p-0 hover:bg-neutral-800 hover:text-lead"
-              >
-                Contact
-              </Link>
+              {!user ? (
+                <Link to="/login">
+                  <Button color="outline">Login</Button>
+                </Link>
+              ) : (
+                <Button onClick={handleLogout} color="outline">
+                  Logout
+                </Button>
+              )}
             </li>
           </ul>
         </div>
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;
