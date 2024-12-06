@@ -12,7 +12,7 @@ export default {
     extend: {
       colors: {
         primary: "#0C0C09",
-        lead: { DEFAULT: "#F5A300", dark: "#FF9700" },
+        lead: { DEFAULT: "#1467E1", dark: "#1444D1" },
         light: { DEFAULT: "#D4D4D5", 200: "#A1A1AA", 300: "#71717A" },
         disabled: { DEFAULT: "#767676", dark: "#333333" },
       },
