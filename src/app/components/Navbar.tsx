@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "./Button";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { logout } from "../redux/authSlice";
 
 const Navbar = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [user, setUser] = useState(null);
+  const user = useAppSelector((state) => state.auth.user);
+  const isLoggedIn = useAppSelector((state) => state.auth.isAuthenticated);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -92,17 +92,23 @@ const Navbar = () => {
                 About
               </Link>
             </li>
-            <li>
-              {!user ? (
-                <Link to="/login">
-                  <Button color="outline">Login</Button>
-                </Link>
-              ) : (
+            {isLoggedIn && user ? (
+              <>
+                <li>
+                  <span className="block pb-2 md:pb-0 font-bold text-lead">{user.email as string}</span>
+                </li>
                 <Button onClick={handleLogout} color="outline">
                   Logout
                 </Button>
-              )}
-            </li>
+              </>
+
+            ) : (
+              <li>
+                <Link to="/login">
+                  <Button color="outline">Login</Button>
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>

@@ -12,7 +12,6 @@ export const registerService = async (
       password,
       confirmPassword,
     });
-
     if (!response.data.success) {
       throw new AxiosError(response.data.message, response.status.toString());
     }
@@ -23,6 +22,13 @@ export const registerService = async (
 };
 
 export const loginService = async (email: string, password: string) => {
-  const response = await api.post("/auth/sign-in", { email, password });
-  return response.data;
+  try {
+    const response = await api.post("/auth/sign-in", { email, password });
+    if (!response.data.success) {
+      throw new AxiosError(response.data.message, response.status.toString());
+    }
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
