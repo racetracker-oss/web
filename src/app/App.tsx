@@ -1,7 +1,8 @@
 import { Suspense, lazy } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './redux/store';
 
 import Loader from './components/Loader';
 import NotFound from './pages/NotFound';
@@ -27,11 +28,14 @@ export function App() {
       ],
     },
   ]);
+
   return (
     <Provider store={store}>
-      <Suspense fallback={<Loader />}>
-        <RouterProvider router={router} />
-      </Suspense>
+      <PersistGate loading={<Loader />} persistor={persistor}>
+        <Suspense fallback={<Loader />}>
+          <RouterProvider router={router} />
+        </Suspense>
+      </PersistGate>
     </Provider>
   );
 }
